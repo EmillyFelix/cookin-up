@@ -1,5 +1,12 @@
 # cookin-up
 
+
+No Cookin' Up, você vai selecionando ingredientes para construir a sua lista de ingredientes. Em seguida, é possível buscar as receitas possíveis de serem feitas com os ingredientes da sua lista!
+![homepage](https://github.com/user-attachments/assets/05adc774-4198-47b8-acf9-9018b9df44bb)
+
+![receitas](https://github.com/user-attachments/assets/f1ac7b99-230a-45f5-919d-b0baed637472)
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
