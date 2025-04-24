@@ -1,13 +1,14 @@
 <script lang="ts">
 import type ICategoria from '@/interfaces/ICategoria';
 import type { PropType } from 'vue';
-import Tag from './Tag.vue';
-
+import Tag from './Tag.vue';  
+import IngredienteSelecionavel from './IngredienteSelecionavel.vue';
 export default {
   props: {
-    categoria: { type: Object as PropType<ICategoria>, required: true } //required: essa propriedade é obrigatória de ser passada quando um componente for consumir o card categoria
+    categoria: { type: Object as PropType <ICategoria>, required: true } //required: essa propriedade é obrigatória de ser passada quando um componente for consumir o card categoria
   },
-  components: { Tag }
+  components: { Tag, IngredienteSelecionavel },
+  emits: ['adicionarIngrediente', 'removerIngrediente'],
 }
 </script>
 
@@ -20,8 +21,15 @@ export default {
     </header>
 
     <ul class="categoria__ingredientes">
-      <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente"> <!-- key: chave unica para cada ingrediente, para o Vue conseguir identificar cada item da lista :key="ingrediente" é uma boa prática para ajudar o Vue a identificar cada item da lista. --> 
-        <Tag :texto="ingrediente" />
+      <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente"> <!-- key: chave unica para cada ingrediente, para o Vue conseguir identificar cada item da lista :key="ingrediente" é uma boa prática para ajudar o Vue a identificar cada item da lista. -->
+
+      <IngredienteSelecionavel 
+        :ingrediente="ingrediente" 
+        @adicionarIngrediente="$emit('adicionarIngrediente', $event)" 
+        @remover-ingrediente="$emit('removerIngrediente', $event)"
+      />
+        
+        <!-- L27 o v-bind é opcional, pois o Vue já entende que a propriedade ingrediente do componente IngredienteSelecionado é a mesma que a do prop ingrediente do CardCategoria. -->
       </li>
     </ul>
   </article>

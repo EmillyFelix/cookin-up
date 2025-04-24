@@ -1,6 +1,8 @@
+
 <script lang="ts">
 import type { PropType } from 'vue';
 import Tag from './Tag.vue';
+
 export default {
   components: { Tag },
   props: {
@@ -35,18 +37,21 @@ export default {
   text-align: center;
   margin-bottom: 1.5rem;
 }
+
 .ingredientes-sua-lista {
   display: flex;
   justify-content: center;
   gap: 1rem 1.5rem;
   flex-wrap: wrap;
 }
+
 .lista-vazia {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.25rem;
+
   color: var(--coral, #F0633C);
   text-align: center;
 }

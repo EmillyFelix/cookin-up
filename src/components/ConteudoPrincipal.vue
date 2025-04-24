@@ -1,37 +1,46 @@
 <script lang="ts">
+import MostrarReceitas from './MostrarReceitas.vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
+import SuaLista from './SuaLista.vue';
 import Tag from './Tag.vue';
+
+type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas'
 
 export default {
     data() {
         return {
-            ingredientes: ['Alho', 'Manteiga', 'Orégano']
+            ingredientes: [] as string [], // string[]: array de strings, o mesmo que Array<string>
+
+            conteudo: 'SelecionarIngredientes' as Pagina
         };
     },
-    components: { SelecionarIngredientes, Tag },
+    components: { SelecionarIngredientes, Tag, SuaLista, MostrarReceitas },
+    methods: {
+    adicionarIngrediente(ingrediente: string) {
+      this.ingredientes.push(ingrediente)
+    },
+    removerIngrediente(ingrediente: string) {
+      this.ingredientes = this.ingredientes.filter(iLista => ingrediente !== iLista);
+    },
+    navegar(pagina: Pagina) {
+      this.conteudo = pagina;
+    },
+  }
 }
 </script>
 
 <template>
   <main class="conteudo-principal">
-    <section>
-      <span class="subtitulo-lg sua-lista-texto">
-        Sua lista:
-      </span>
+    <SuaLista :ingredientes="ingredientes" />
 
-      <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
-        <li v-for="ingrediente in ingredientes" :key="ingrediente" >
-          <Tag :texto="ingrediente" :ativa="true"/> <!-- ou deixando apenas ativa sem o vbind e o true-->
-        </li>
-      </ul>
+    <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
+    @adicionar-ingrediente="adicionarIngrediente"
+    @remover-ingrediente="removerIngrediente"
+    @buscar-receitas="navegar('MostrarReceitas')"
+    />
 
-      <p v-else class="paragrafo lista-vazia">
-        <img src="../assets/imagens-main/icones/lista-vazia.svg" alt="Ícone de pesquisa">
-        Sua lista está vazia, selecione ingredientes para iniciar.
-      </p>
-    </section>
-
-    <SelecionarIngredientes />
+    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" />
+    
   </main>
 </template>
 
